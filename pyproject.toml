@@ -24,6 +24,8 @@ duckdb = ">=0.8.0"
 shandy-sqlfmt = ">=0.19.0"
 platformdirs = "^3.10.0"
 pyperclip = "^1.8.2"
+buenavista = "^0.3.0"
+pyarrow = "^13.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.3.1"

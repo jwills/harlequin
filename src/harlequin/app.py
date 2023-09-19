@@ -2,8 +2,10 @@ import json
 from functools import partial
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple, Type, Union
+from threading import Thread
 
 import duckdb
+from buenavista.examples import duckdb_postgres
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
@@ -93,6 +95,10 @@ class Harlequin(App, inherit_bindings=False):
                 md_token=md_token,
                 md_saas=md_saas,
             )
+            bv_server = duckdb_postgres.create(self.connection, ("localhost", 5433))
+            self.daemon = Thread(target=bv_server.serve_forever)
+            self.daemon.setDaemon(True)
+            self.daemon.start()
         except HarlequinExit:
             self.exit()
         else:
